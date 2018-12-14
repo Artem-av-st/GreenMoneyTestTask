@@ -1,0 +1,4 @@
+SELECT TOP(1) Id, Status
+FROM UserStatus
+WHERE UserId = 85
+ORDER BY Id DESC 

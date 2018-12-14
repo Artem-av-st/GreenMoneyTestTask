@@ -1,0 +1,3 @@
+SELECT SUM(ID) FROM 
+	(SELECT ID FROM UserStatus WHERE UserId = 86) AS tbl1
+
