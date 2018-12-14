@@ -1,0 +1,13 @@
+﻿@model IEnumerable<double>
+@{
+    int itemsCounter = 0;
+    foreach (var item in Model)
+    {
+        var itemClass = "list-group-item-dark";
+        if (itemsCounter % 2 == 0)
+        { itemClass = "list-group-item-info"; }
+
+        <p class=@itemClass>@item</p>
+        itemsCounter++;
+    }
+}

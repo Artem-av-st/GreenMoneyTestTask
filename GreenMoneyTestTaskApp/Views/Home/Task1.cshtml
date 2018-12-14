@@ -1,0 +1,43 @@
+﻿@model IEnumerable<string>
+
+@{
+    ViewData["Title"] = "Task1";
+}
+<div class="btn-group">
+    <button id="showResult" type="button" class="btn btn-success btn-lg" onclick="showResult()">Показать результат</button>
+    <button id="hideResult" type="button" class="btn btn-info btn-lg" onclick="hideResult()">Скрыть результат</button>
+</div>
+<div id="result" class="list-group col-xl-6 col-lg-8" style="display:none">
+    @{
+        int itemsCounter = 0;
+        foreach (var item in Model)
+        {
+            var itemClass = "list-group-item-dark";
+            if (itemsCounter % 3 == 0)
+            {
+
+                if (itemsCounter % 5 == 0)
+                { itemClass = "list-group-item-success"; }
+                else
+                { itemClass = "list-group-item-warning"; }
+            }
+            else if (itemsCounter % 5 == 0)
+            { itemClass = "list-group-item-info"; }
+
+            <p class=@itemClass>@item</p>
+            itemsCounter++;
+        }
+    }
+</div>
+<script>
+    function showResult() {
+
+        $("#result").show();
+
+    }
+    function hideResult() {
+        $("#result").hide();
+    }
+</script>
+
+
