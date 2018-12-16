@@ -2,6 +2,38 @@
 @{
     ViewData["Title"] = "Task3";
 }
+<div class="form-group  col-xl-5 col-lg-7">
+    <input id="input" type="text" class="form-control" value="abcdf"/>
+</div>
+<div class="form-group col-xl-5 col-lg-7" >
+    <div class="btn-group">
+        <button type="button" id="showResult" class="btn btn-success btn-lg" onclick="getResult()">Получить результат</button>
+        <button type="button" id="hideResult" class="btn btn-info btn-lg" onclick="cleanResult()">Очистить результат</button>
+    </div>
+</div>
+
+<div id="result" class="list-group col-xl-6 col-lg-8">
+
+</div>
+
+<script>
+    function getResult() {
+        if ($("#input").val() === '') {
+            $("#result").html("<h3 class = \"text-danger\">Входная трока не может быть пустой</h3>");
+            return;
+        }
+        var link = "@Url.Action("Task3Result","Home")" + "?inputString=" + $("#input").val();
+                
+        $.get(link, null, function (data) {
+
+            $("#result").html("<h3 class = \"text-info\">" + data + "</h3>");
+            $("#result").show();
+        });
+    }
+    function cleanResult() {
+        $("#result").empty();
+    }
+</script>
 
 
 

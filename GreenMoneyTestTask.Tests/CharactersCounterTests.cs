@@ -35,5 +35,15 @@ namespace GreenMoneyTestTask.Tests
 
             Assert.False(isFound);            
         }
+
+        [Theory]
+        [InlineData(new[] { 'a', 'b', '1', 'd', 'f' })]
+        [InlineData(new[] { 'O', 'P', 'Б', 'S' })]
+        void GetMissedCharacter_non_english_letter_argumentOutOfRangeException(IEnumerable<char> characters)
+        {
+            char missedChar = (char)0;
+
+            Assert.Throws<ArgumentOutOfRangeException>(() => charCounter.TryGetMissedCharacter(characters, out missedChar));           
+        }
     }
 }

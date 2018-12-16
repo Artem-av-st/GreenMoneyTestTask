@@ -10,7 +10,7 @@ namespace GreenMoneyTestTask
     {
         public IEnumerable<KeyValuePair<int,int>> GetIntersectionsAndSquares(IEnumerable<int> firstCollection, IEnumerable<int> secondCollection)
         {            
-            return firstCollection.Intersect(secondCollection).Select(x => new KeyValuePair<int,int>(x, (int)Math.Pow(x,2)) );
+            return firstCollection?.Intersect(secondCollection).Select(x => new KeyValuePair<int,int>(x, (int)Math.Pow(x,2)) );
         }        
     }
 }

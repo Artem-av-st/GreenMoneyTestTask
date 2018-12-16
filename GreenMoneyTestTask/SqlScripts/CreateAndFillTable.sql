@@ -7,7 +7,7 @@ CREATE TABLE [dbo].[UserStatus](
 ) ON [PRIMARY]
 GO
 
-INSERT INTO dbo.UserStatus 
+INSERT INTO [dbo].[UserStatus] 
 (ID, UserId, Status) VALUES 
 (1,85,2),
 (2,85,3),

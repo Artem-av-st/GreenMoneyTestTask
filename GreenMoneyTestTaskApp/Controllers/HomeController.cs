@@ -44,32 +44,60 @@ namespace GreenMoneyTestTaskApp.Controllers
             var to = 0.6;
             var sum = 1;
 
-            return PartialView(generator.GetRandomNumbersWithFixedSum(from, to, sum));
+            return PartialView("Task2Result",generator.GetRandomNumbersWithFixedSum(from, to, sum));
         }
 
-        public IActionResult Task3()
+        public IActionResult Task3(string inputString)
         {
-            ViewData["TaskText"] = "Сгенерировать последовательность случайных чисел, чей размер не превышает 0.6 и " +
-                "не меньше 0, и сумма чисел равна 1";
-            var generator = new RandomNumsGenerator();
-            var from = 0.0;
-            var to = 0.6;
-            var sum = 1;
+            ViewData["TaskText"] = "Написать метод, который в качестве входных данных принимает массив букв " +
+                "английского алфавита по порядку и возвращает пропущенную букву в массиве. Пример: ['a', 'b', 'c', 'd', 'f']-> " +
+                "'e'['O', 'Q', 'R', 'S']-> 'P'.";
+                        
+            return View();
+        }
 
-            return View(generator.GetRandomNumbersWithFixedSum(from, to, sum));
+        public IActionResult Task3Result(string inputString)
+        {
+            if(String.IsNullOrWhiteSpace(inputString))
+            {
+                return BadRequest("Входная трока не может быть пустой");
+            }
+            string result = String.Empty;
+            var counter = new CharactersCounter();
+            try
+            {
+                if (counter.TryGetMissedCharacter(inputString.ToCharArray(), out var missedCharacter))
+                {
+                    result += "Пропущенная буква: " + missedCharacter;
+                }
+                else
+                {
+                    result = "Пропущенная буква не найдена";
+                }
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                result = "Входная строка не должна содержать символов кроме букв английского алфавита";
+            }
+            return Ok(result);
         }
 
         public IActionResult Task4()
         {
-            ViewData["TaskText"] = "Написать метод, который в качестве входных данных принимает массив букв " +
-                "английского алфавита по порядку и возвращает пропущенную букву в массиве. Пример: ['a', 'b', 'c', 'd', 'f']-> 'e'['O', 'Q', 'R', 'S']-> 'P'.";
-
-            var charCounter = new CharactersCounter();
-            var from = 0.0;
-            var to = 0.6;
-            var sum = 1;
+            ViewData["TaskText"] = "Даны два числовых массива, необходимо написать LINQ - выражение, которое " +
+                "выдаст коллекцию из двух полей, где одно поле -это пересечение элементов массива, а другое поле - его квадрат.";            
 
             return View();
+        }
+
+        public IActionResult Task4Result(
+            [ModelBinder(typeof(IntArrayModelBinder))] IEnumerable<int> firstCollection,
+            [ModelBinder(typeof(IntArrayModelBinder))] IEnumerable<int> secondCollection)
+        {
+
+            var numProcessor = new NumericCollectionsProcessor();
+            var result = numProcessor.GetIntersectionsAndSquares(firstCollection, secondCollection);
+            return PartialView(result);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
